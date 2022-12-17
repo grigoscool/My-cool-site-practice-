@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container text-center my-5">
+	<div class="raw">
+		<div class="col-lg-6 mx-auto">
+			<img src="{% static 'images/dominican1.jpeg' %}" class="rounded-circle" alt="picture">
+			<p>
+				It was me fisrt jorney. I and my wife spend our vacation in
+				dominican hotel. It has amazing sand bitch, and beautifull
+				blue caribian sea.
+			</p>
+			<a href="{% url 'hotel' %}" target="_blank" class="btn btn-primary">Showe me more</a>
+			<a href="https://vk.com/id161358495" target="_blank" class="btn btn-secondary">My VC page</a>
+		</div>
+	</div>
+</div>
+{% endblock content %}
