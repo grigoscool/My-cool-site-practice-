@@ -1,17 +1,41 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="container text-center my-5">
-	<div class="raw">
-		<div class="col-lg-6 mx-auto">
-			<img src="{% static 'images/dominican1.jpeg' %}" class="rounded-circle" alt="picture">
-			<p>
-				It was me fisrt jorney. I and my wife spend our vacation in
-				dominican hotel. It has amazing sand bitch, and beautifull
-				blue caribian sea.
-			</p>
-			<a href="{% url 'hotel' %}" target="_blank" class="btn btn-primary">Showe me more</a>
-			<a href="https://vk.com/id161358495" target="_blank" class="btn btn-secondary">My VC page</a>
+
+<div class="container my-5">
+	<div class="row row-cols-lg-3">
+		<div class="col">
+			<div class="card" style="width: 18rem;">
+				<img src="{% static 'images/dominican1.jpeg' %}" class="card-img-top" alt="picture">
+				<div class="card-body">
+					<h5 class="card-title">Dominican</h5>
+					<p class="card-text">It was my fisrt jorney.
+					</p>
+					<a href="{% url 'hotel' %}" target="_blank" class="btn btn-primary">Showe me more</a>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card" style="width: 18rem;">
+				<img src="{% static 'images/tyrc1.jpeg' %}" class="card-img-top" width="591" height="225" alt="picture">
+				<div class="card-body">
+					<h5 class="card-title">Turkey</h5>
+					<p class="card-text">It was my second jorney.
+					</p>
+					<a href="{% url 'hotel' %}" target="_blank" class="btn btn-primary">Showe me more</a>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card" style="width: 18rem;">
+				<img src="{% static 'images/len3.jpeg' %}" width="591" height="225" class="card-img-top" alt="picture">
+				<div class="card-body">
+					<h5 class="card-title">SPB</h5>
+					<p class="card-text">We spend our holliday in forest house in SPB.
+					</p>
+					<a href="{% url 'hotel' %}" target="_blank" class="btn btn-primary">Showe me more</a>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
