@@ -14,7 +14,8 @@ def index(request):
 def hotels(request):
     return render(request, 'hotels.html',{'menu':menu})
 
-def hotel(request):
+def hotel(request, hotel_id):
+
     return render(request, 'hotel.html',{'menu':menu})
 
 def about(request):

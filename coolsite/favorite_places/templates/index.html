@@ -9,7 +9,9 @@
 <div class="container">
 	<div class="text my-5">
 		{% for hotel in hotels %}
-			<p>{{ hotel }}</p>
+			<p>
+				<a href="{{ hotel.get_absolute_url }}">{{ hotel }}</a>
+			</p>
 		{% endfor %}
 	</div>
 	<div class="container text-center my-5">
