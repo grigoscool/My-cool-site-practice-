@@ -3,7 +3,8 @@ from django.shortcuts import render
 from .models import Place
 
 def index(request):
-    return render(request, 'index.html')
+    hotels = Place.objects.all()
+    return render(request, 'index.html', {'hotels': hotels})
 
 def hotels(request):
     return render(request, 'hotels.html')

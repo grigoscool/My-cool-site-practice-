@@ -1,8 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block css %}
+	.container { display: flex}
+	.text {width: 50%}
+{% endblock css %}
 {% block content %}
 <h1 class="text-center">Hello my name is Sergei, i will tell you about my favorite places</h1>
-<div class="container text-center my-5">
-	<img src="static/images/ava.jpeg" class="rounded-circle" alt="none ava">
+<div class="container">
+	<div class="text my-5">
+		{% for hotel in hotels %}
+			<p>{{ hotel }}</p>
+		{% endfor %}
+	</div>
+	<div class="container text-center my-5">
+		<img src="static/images/ava.jpeg" class="rounded-circle" alt="none ava">
+	</div>
+
 </div>
 {% endblock content %}
