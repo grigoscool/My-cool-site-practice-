@@ -22,7 +22,5 @@ from favorite_places import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
-    path('hotel', views.hotel, name='hotel'),
-    path('hotels', views.hotels, name='hotels'),
+    path('', include('favorite_places.urls')),
 ]
