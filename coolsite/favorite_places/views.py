@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Place
+from .models import Place, People
 
 menu = [
     {'title':"about", 'url_name': 'about'},
@@ -9,7 +9,8 @@ menu = [
 
 def index(request):
     hotels = Place.objects.all()
-    return render(request, 'index.html', {'hotels': hotels,'menu':menu})
+    people = People.objects.all()
+    return render(request, 'index.html', {'hotels': hotels,'menu':menu, 'people':people})
 
 def hotels(request):
     return render(request, 'hotels.html',{'menu':menu})

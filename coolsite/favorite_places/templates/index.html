@@ -2,20 +2,32 @@
 {% load static %}
 {% block css %}
 	.container { display: flex}
-	.text {width: 50%}
+	.text {width: 25%}
+	.img {width: 60%}
+	.list {width: 20%}
+
 {% endblock css %}
 {% block content %}
-<h1 class="text-center">Hello my name is Sergei, i will tell you about my favorite places</h1>
+<h1 class="text-center">Hello my name is Sergei, i will tell you about my family's favorite places</h1>
 <div class="container">
 	<div class="text my-5">
+		<h2>Favorite places</h2>
 		{% for hotel in hotels %}
 			<p>
 				<a href="{{ hotel.get_absolute_url }}">{{ hotel }}</a>
 			</p>
 		{% endfor %}
 	</div>
-	<div class="container text-center my-5">
+	<div class="img my-5">
 		<img src="static/images/ava.jpeg" class="rounded-circle" alt="none ava">
+	</div>
+	<div class="list my-5">
+		<h2>Traveler</h2>
+		{% for men in people %}
+		<p>
+			<a href="#">{{ men.fst_name }}</a>
+		</p>
+		{% endfor %}
 	</div>
 
 </div>
