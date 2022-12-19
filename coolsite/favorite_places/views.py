@@ -11,8 +11,7 @@ menu = [
 
 def index(request):
     hotels = Place.objects.all()
-    people = People.objects.all()
-    return render(request, 'index.html', {'hotels': hotels,'menu':menu, 'people':people})
+    return render(request, 'index.html', {'hotels': hotels,'menu':menu})
 
 def hotels(request):
     r_hotels = []
@@ -34,11 +33,9 @@ def contact(request):
 
 def people(request, people_id):
     hotels = Place.objects.filter(people_id=people_id)
-    people = People.objects.all()
     context = {
         'hotels': hotels,
         'menu': menu,
-        'people': people,
     }
     if len(hotels) == 0:
         raise Http404()

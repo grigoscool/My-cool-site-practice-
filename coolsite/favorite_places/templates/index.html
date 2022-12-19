@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load favorite_places_tag %}
 {% block css %}
 	.container { display: flex}
 	.text {width: 25%}
@@ -23,6 +24,7 @@
 	</div>
 	<div class="list my-5">
 		<h2>Traveler</h2>
+		{% get_people as people%}
 		{% for men in people %}
 		<p>
 			<a href="{{ men.get_absolute_url }}">{{ men.fst_name }}</a>
