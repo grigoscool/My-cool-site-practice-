@@ -1,0 +1,5 @@
+		{% for men in people %}
+		<p>
+			<a href="{{ men.get_absolute_url }}">{{ men.fst_name }}</a>
+		</p>
+		{% endfor %}
