@@ -13,6 +13,7 @@ def index(request):
     return render(request, 'index.html', {'hotels': hotels,'menu':menu, 'people':people})
 
 def hotels(request):
+
     return render(request, 'hotels.html',{'menu':menu})
 
 def hotel(request, hotel_id):

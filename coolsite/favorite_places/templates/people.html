@@ -2,17 +2,22 @@
 {% load static %}
 {% block content %}
 
-{% for hotel in hotels %}
-
-			{% if hotel.img %}
-				<p><img src="{{ hotel.img.url }}" width="50%" height="50%" alt=""></p>
-			{%endif%}
-			<h1>
-				{{ hotel.name }}
-			</h1>
-			<p>
-				{{ hotel.text }}
-			</p>
+<div class="container my-5">
+	<div class="row row-cols-lg-3">
+		{% for hotel in hotels %}
+		<div class="col">
+			<div class="card" style="width: 18rem;">
+				<img src="{{ hotel.img.url }}" class="card-img-top" width="25%" height="25%" alt="picture">
+				<div class="card-body">
+					<h5 class="card-title">{{ hotel.name }}</h5>
+					<p class="card-text">{{ hotel.text }}
+					</p>
+					<a href="{% url 'sigl' %}" target="_blank" class="btn btn-primary">Showe me more</a>
+				</div>
+			</div>
+		</div>
 		{% endfor %}
+	</div>
+</div>
 
 {% endblock content %}
