@@ -17,7 +17,7 @@ def index(request):
 def hotels(request):
     r_hotels = []
     while len(r_hotels) != 3:
-        r_hotel = Place.objects.get(id=random.randint(0,7))
+        r_hotel = Place.objects.get(id=random.randint(1,7))
         if r_hotel not in r_hotels:
             r_hotels.append(r_hotel)
     return render(request, 'hotels.html',{'menu':menu, 'r_hotels':r_hotels})
