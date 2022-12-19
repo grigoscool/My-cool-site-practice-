@@ -21,3 +21,6 @@ class People(models.Model):
 
     def __str__(self):
         return self.fst_name
+
+    def get_absolute_url(self):
+        return reverse('people', kwargs={'people_id':self.pk})

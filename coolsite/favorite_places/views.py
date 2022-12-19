@@ -24,3 +24,7 @@ def about(request):
 
 def contact(request):
     return render(request, 'contact.html',{'menu':menu})
+
+def people(request, people_id):
+
+    return render(request, 'people.html', {'menu': menu})

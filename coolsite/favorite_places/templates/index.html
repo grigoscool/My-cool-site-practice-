@@ -25,7 +25,7 @@
 		<h2>Traveler</h2>
 		{% for men in people %}
 		<p>
-			<a href="#">{{ men.fst_name }}</a>
+			<a href="{{ men.get_absolute_url }}">{{ men.fst_name }}</a>
 		</p>
 		{% endfor %}
 	</div>
