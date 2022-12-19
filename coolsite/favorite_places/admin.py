@@ -1,5 +1,10 @@
 from django.contrib import admin
 
-from .models import Place
+from .models import Place, People
 
-admin.site.register(Place)
+class PlacesAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'date', 'img', 'people')
+    list_display_links = ('name', 'id')
+
+admin.site.register(Place, PlacesAdmin)
+admin.site.register(People)

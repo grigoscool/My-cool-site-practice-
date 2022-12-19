@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from .models import Place, People
 
@@ -26,5 +26,14 @@ def contact(request):
     return render(request, 'contact.html',{'menu':menu})
 
 def people(request, people_id):
+    hotels = Place.objects.filter(people_id=people_id)
+    people = People.objects.all()
+    context = {
+        'hotels': hotels,
+        'menu': menu,
+        'people': people,
+    }
+    if len(hotels) == 0:
+        raise Http404()
 
-    return render(request, 'people.html', {'menu': menu})
+    return render(request, 'people.html', context)
