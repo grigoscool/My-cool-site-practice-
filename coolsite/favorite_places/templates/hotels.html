@@ -4,39 +4,19 @@
 
 <div class="container my-5">
 	<div class="row row-cols-lg-3">
+		{% for hotel in r_hotels %}
 		<div class="col">
 			<div class="card" style="width: 18rem;">
-				<img src="{% static 'images/dominican1.jpeg' %}" class="card-img-top" alt="picture">
+				<img src="{{ hotel.img.url }}" class="card-img-top" width="25%" height="25%" alt="picture">
 				<div class="card-body">
-					<h5 class="card-title">Dominican</h5>
-					<p class="card-text">It was my fisrt jorney.
+					<h5 class="card-title">{{ hotel.name }}</h5>
+					<p class="card-text">{{ hotel.text }}
 					</p>
 					<a href="{% url 'sigl' %}" target="_blank" class="btn btn-primary">Showe me more</a>
 				</div>
 			</div>
 		</div>
-		<div class="col">
-			<div class="card" style="width: 18rem;">
-				<img src="{% static 'images/tyrc1.jpeg' %}" class="card-img-top" width="591" height="225" alt="picture">
-				<div class="card-body">
-					<h5 class="card-title">Turkey</h5>
-					<p class="card-text">It was my second jorney.
-					</p>
-					<a href="{% url 'sigl' %}" target="_blank" class="btn btn-primary">Showe me more</a>
-				</div>
-			</div>
-		</div>
-		<div class="col">
-			<div class="card" style="width: 18rem;">
-				<img src="{% static 'images/len3.jpeg' %}" width="591" height="225" class="card-img-top" alt="picture">
-				<div class="card-body">
-					<h5 class="card-title">SPB</h5>
-					<p class="card-text">We spend our holliday in forest house in SPB.
-					</p>
-					<a href="{% url 'sigl' %}" target="_blank" class="btn btn-primary">Showe me more</a>
-				</div>
-			</div>
-		</div>
+		{% endfor %}
 	</div>
 </div>
 {% endblock content %}

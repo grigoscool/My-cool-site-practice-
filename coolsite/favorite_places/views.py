@@ -1,3 +1,5 @@
+import random
+
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from .models import Place, People
@@ -13,8 +15,12 @@ def index(request):
     return render(request, 'index.html', {'hotels': hotels,'menu':menu, 'people':people})
 
 def hotels(request):
-
-    return render(request, 'hotels.html',{'menu':menu})
+    r_hotels = []
+    while len(r_hotels) != 3:
+        r_hotel = Place.objects.get(id=random.randint(0,7))
+        if r_hotel not in r_hotels:
+            r_hotels.append(r_hotel)
+    return render(request, 'hotels.html',{'menu':menu, 'r_hotels':r_hotels})
 
 def hotel(request, hotel_id):
 
