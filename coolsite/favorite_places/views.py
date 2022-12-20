@@ -22,8 +22,8 @@ def hotels(request):
     return render(request, 'hotels.html',{'menu':menu, 'r_hotels':r_hotels})
 
 def hotel(request, hotel_id):
-
-    return render(request, 'hotel.html',{'menu':menu})
+    hotel = Place.objects.get(id=hotel_id)
+    return render(request, 'hotel.html',{'menu':menu,'hotel':hotel})
 
 def about(request):
     return render(request, 'about.html',{'menu':menu})

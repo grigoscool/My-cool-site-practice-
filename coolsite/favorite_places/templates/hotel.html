@@ -1,5 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block css %}
+	.container { display: flex}
+	.cols1 {width: 50%}
+	.cols2 {width: 50%}
+{% endblock css %}
+
 {% block content %}
-<h1>There are some information about this interesting place</h1>
+<h1 class="text-center">{{ hotel.name }}</h1>
+<div class="container my-4">
+	<div class="row">
+		<div class="cols1">
+		{% if hotel.img %}
+			<img src="{{ hotel.img.url }}" alt="none" width="500" height="500">
+		{% endif %}
+		</div>
+		<div class="cols2">
+			<p>{{ hotel.text | linebreaks }}</p>
+		</div>
+	</div>
+</div>
+
 {% endblock content %}
