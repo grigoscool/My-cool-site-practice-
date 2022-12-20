@@ -3,8 +3,10 @@ import random
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from .models import Place, People
+from .forms import AddPlaceForm
 
 menu = [
+    {'title':"add place", 'url_name': 'add_place'},
     {'title':"about", 'url_name': 'about'},
     {'title': "contact", 'url_name': 'contact'}
 ]
@@ -24,6 +26,17 @@ def hotels(request):
 def hotel(request, hotel_slug):
     hotel = Place.objects.get(slug=hotel_slug)
     return render(request, 'hotel.html',{'menu':menu,'hotel':hotel})
+
+def add_place(request):
+
+    if request.method == 'POST':                #есди данные введены
+        form = AddPlaceForm(request.POST)       #экземпляр заполняется ими
+        if form.is_valid():                     #проверка на соотв условиям
+            print(form.cleaned_data)
+    else:
+        form = AddPlaceForm()                   #если данных нет, пустая форма
+
+    return render(request, 'add_place.html', {'form':form, 'menu':menu})
 
 def about(request):
     return render(request, 'about.html',{'menu':menu})
