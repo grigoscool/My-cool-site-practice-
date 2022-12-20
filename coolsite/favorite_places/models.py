@@ -3,8 +3,9 @@ from django.urls import reverse
 
 
 class Place(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=255)
     text = models.TextField()
+    slug = models.SlugField(max_length=255, unique=True)
     img = models.ImageField(upload_to='static/images/')
     date = models.DateField(auto_now_add=True)
     people = models.ForeignKey('People', on_delete=models.PROTECT, null=True)
@@ -17,7 +18,8 @@ class Place(models.Model):
 
 
 class People(models.Model):
-    fst_name = models.CharField(max_length=100)
+    fst_name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True)
 
     def __str__(self):
         return self.fst_name
