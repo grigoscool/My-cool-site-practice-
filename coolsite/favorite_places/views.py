@@ -1,7 +1,7 @@
 import random
 
 from django.http import HttpResponse, Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Place, People
 from .forms import AddPlaceForm
 
@@ -30,9 +30,10 @@ def hotel(request, hotel_slug):
 def add_place(request):
 
     if request.method == 'POST':                #есди данные введены
-        form = AddPlaceForm(request.POST)       #экземпляр заполняется ими
+        form = AddPlaceForm(request.POST, request.FILES)       #экземпляр заполняется ими
         if form.is_valid():                     #проверка на соотв условиям
-            print(form.cleaned_data)
+            form.save()
+            return redirect('index')
     else:
         form = AddPlaceForm()                   #если данных нет, пустая форма
 
