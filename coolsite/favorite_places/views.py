@@ -21,8 +21,8 @@ def hotels(request):
             r_hotels.append(r_hotel)
     return render(request, 'hotels.html',{'menu':menu, 'r_hotels':r_hotels})
 
-def hotel(request, hotel_id):
-    hotel = Place.objects.get(id=hotel_id)
+def hotel(request, hotel_slug):
+    hotel = Place.objects.get(slug=hotel_slug)
     return render(request, 'hotel.html',{'menu':menu,'hotel':hotel})
 
 def about(request):
