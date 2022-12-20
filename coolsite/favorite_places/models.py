@@ -25,4 +25,4 @@ class People(models.Model):
         return self.fst_name
 
     def get_absolute_url(self):
-        return reverse('people', kwargs={'people_id':self.pk})
+        return reverse('people', kwargs={'people_slug':self.slug})

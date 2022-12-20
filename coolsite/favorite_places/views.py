@@ -31,8 +31,9 @@ def about(request):
 def contact(request):
     return render(request, 'contact.html',{'menu':menu})
 
-def people(request, people_id):
-    hotels = Place.objects.filter(people_id=people_id)
+def people(request, people_slug):
+    ex = People.objects.get(slug=people_slug)
+    hotels = Place.objects.filter(people_id=ex.id)
     context = {
         'hotels': hotels,
         'menu': menu,
