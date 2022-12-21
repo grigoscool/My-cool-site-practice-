@@ -2,7 +2,7 @@ import random
 
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 
 from .models import Place, People
 from .forms import AddPlaceForm
@@ -25,9 +25,18 @@ def hotels(request):
             r_hotels.append(r_hotel)
     return render(request, 'hotels.html',{'menu':menu, 'r_hotels':r_hotels})
 
-def hotel(request, hotel_slug):
-    hotel = Place.objects.get(slug=hotel_slug)
-    return render(request, 'hotel.html',{'menu':menu,'hotel':hotel})
+
+class Hotel(DetailView):
+    model = Place
+    template_name = 'hotel.html'
+    context_object_name = 'hotel'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        return context
+# def hotel(request, hotel_slug):
+#     hotel = Place.objects.get(slug=hotel_slug)
+#     return render(request, 'hotel.html',{'menu':menu,'hotel':hotel})
 
 def add_place(request):
 
