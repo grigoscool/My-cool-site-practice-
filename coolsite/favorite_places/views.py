@@ -2,7 +2,7 @@ import random
 
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView, CreateView
 
 from .models import Place, People
 from .forms import AddPlaceForm
@@ -34,21 +34,27 @@ class Hotel(DetailView):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
         return context
-# def hotel(request, hotel_slug):
-#     hotel = Place.objects.get(slug=hotel_slug)
-#     return render(request, 'hotel.html',{'menu':menu,'hotel':hotel})
 
-def add_place(request):
+class AddPlace(CreateView):
+    form_class = AddPlaceForm
+    template_name = 'add_place.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        return context
 
-    if request.method == 'POST':                #есди данные введены
-        form = AddPlaceForm(request.POST, request.FILES)       #экземпляр заполняется ими
-        if form.is_valid():                     #проверка на соотв условиям
-            form.save()
-            return redirect('index')
-    else:
-        form = AddPlaceForm()                   #если данных нет, пустая форма
 
-    return render(request, 'add_place.html', {'form':form, 'menu':menu})
+# def add_place(request):
+#
+#     if request.method == 'POST':                                #есди данные введены
+#         form = AddPlaceForm(request.POST, request.FILES)       #экземпляр заполняется ими
+#         if form.is_valid():                                       #проверка на соотв условиям
+#             form.save()
+#             return redirect('index')
+#     else:
+#         form = AddPlaceForm()                   #если данных нет, пустая форма
+#
+#     return render(request, 'add_place.html', {'form':form, 'menu':menu})
 
 class About(TemplateView):
     template_name = "about.html"
