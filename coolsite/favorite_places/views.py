@@ -47,14 +47,17 @@ class About(TemplateView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
+        # Add menu from the top
         context['menu'] = menu
         return context
-# def about(request):
-#     return render(request, 'about.html',{'menu':menu})
 
-def contact(request):
-    return render(request, 'contact.html',{'menu':menu})
+class Contact(TemplateView):
+    template_name = 'contact.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        return context
 
 def people(request, people_slug):
     ex = People.objects.get(slug=people_slug)
