@@ -2,12 +2,14 @@ import random
 
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
+from django.views.generic import TemplateView
+
 from .models import Place, People
 from .forms import AddPlaceForm
 
 menu = [
-    {'title':"add place", 'url_name': 'add_place'},
-    {'title':"about", 'url_name': 'about'},
+    {'title': "add place", 'url_name': 'add_place'},
+    {'title': "about", 'url_name': 'about'},
     {'title': "contact", 'url_name': 'contact'}
 ]
 
@@ -39,8 +41,17 @@ def add_place(request):
 
     return render(request, 'add_place.html', {'form':form, 'menu':menu})
 
-def about(request):
-    return render(request, 'about.html',{'menu':menu})
+class About(TemplateView):
+    template_name = "about.html"
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['menu'] = menu
+        return context
+# def about(request):
+#     return render(request, 'about.html',{'menu':menu})
 
 def contact(request):
     return render(request, 'contact.html',{'menu':menu})
