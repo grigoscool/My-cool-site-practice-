@@ -6,12 +6,7 @@ from django.views.generic import TemplateView, DetailView, CreateView
 
 from .models import Place, People
 from .forms import AddPlaceForm
-
-menu = [
-    {'title': "add place", 'url_name': 'add_place'},
-    {'title': "about", 'url_name': 'about'},
-    {'title': "contact", 'url_name': 'contact'}
-]
+from .units import *
 
 def index(request):
     hotels = Place.objects.all()
@@ -26,14 +21,16 @@ def hotels(request):
     return render(request, 'hotels.html',{'menu':menu, 'r_hotels':r_hotels})
 
 
-class Hotel(DetailView):
+class Hotel(DataMixin, DetailView):
     model = Place
     template_name = 'hotel.html'
     context_object_name = 'hotel'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        return context
+        # добавляем словарь из units из класса DataMixin
+        user_cont = self.get_user_context()
+        # возвращаем сумму словарей
+        return context | user_cont
 
 class AddPlace(CreateView):
     form_class = AddPlaceForm
@@ -56,23 +53,23 @@ class AddPlace(CreateView):
 #
 #     return render(request, 'add_place.html', {'form':form, 'menu':menu})
 
-class About(TemplateView):
+class About(DataMixin, TemplateView):
     template_name = "about.html"
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add menu from the top
-        context['menu'] = menu
-        return context
+        user_cont = self.get_user_context()
+        return context | user_cont
 
-class Contact(TemplateView):
+class Contact(DataMixin, TemplateView):
     template_name = 'contact.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        return context
+        user_cont = self.get_user_context()
+        return context | user_cont
 
 def people(request, people_slug):
     ex = People.objects.get(slug=people_slug)
