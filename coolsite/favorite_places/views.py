@@ -41,6 +41,7 @@ class AddPlace(LoginRequiredMixin, DataMixin, CreateView):
     template_name = 'add_place.html'
     # переменная определят куда перенаправит не авторизованного пользователя добавляет страницу
     login_url = reverse_lazy('index')
+    raise_exception = True
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user_cont = self.get_user_context()
