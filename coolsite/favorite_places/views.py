@@ -1,8 +1,11 @@
 import random
 
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Place, People
 from .forms import AddPlaceForm
@@ -12,6 +15,7 @@ def index(request):
     hotels = Place.objects.all()
     return render(request, 'index.html', {'hotels': hotels,'menu':menu})
 
+@login_required(login_url = '/admin/')    # декоратор проверяет залогинен ли пользователь
 def hotels(request):
     r_hotels = []
     while len(r_hotels) != 3:
@@ -32,26 +36,17 @@ class Hotel(DataMixin, DetailView):
         # возвращаем сумму словарей
         return context | user_cont
 
-class AddPlace(CreateView):
+class AddPlace(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPlaceForm
     template_name = 'add_place.html'
+    # переменная определят куда перенаправит не авторизованного пользователя добавляет страницу
+    login_url = reverse_lazy('index')
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        return context
+        user_cont = self.get_user_context()
+        return context | user_cont
 
 
-# def add_place(request):
-#
-#     if request.method == 'POST':                                #есди данные введены
-#         form = AddPlaceForm(request.POST, request.FILES)       #экземпляр заполняется ими
-#         if form.is_valid():                                       #проверка на соотв условиям
-#             form.save()
-#             return redirect('index')
-#     else:
-#         form = AddPlaceForm()                   #если данных нет, пустая форма
-#
-#     return render(request, 'add_place.html', {'form':form, 'menu':menu})
 
 class About(DataMixin, TemplateView):
     template_name = "about.html"
