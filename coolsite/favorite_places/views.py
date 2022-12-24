@@ -1,5 +1,6 @@
 import random
 
+from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.views import LoginView
@@ -9,8 +10,8 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Place, People
-from .forms import AddPlaceForm, RegisterForm
+from .models import *
+from .forms import *
 from .units import *
 
 def index(request):
@@ -81,8 +82,7 @@ def people(request, people_slug):
 
     return render(request, 'people.html', context)
 
-# def login(request):
-#     return render(request, 'login.html')
+
 
 class RegaisterUser(DataMixin, CreateView):
     form_class = RegisterForm
@@ -94,11 +94,24 @@ class RegaisterUser(DataMixin, CreateView):
         user_cont = self.get_user_context()
         return context | user_cont
 
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('index')
+
 class LoginUser(DataMixin, LoginView):
-    form_class = AuthenticationForm
+    form_class = LoginUserForm
     template_name = 'login.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user_cont = self.get_user_context()
         return context | user_cont
+
+    # вместо переменной в настройках, редирект можно указать в функции
+    # def get_success_url(self):
+        # return reverse_lazy('index')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')

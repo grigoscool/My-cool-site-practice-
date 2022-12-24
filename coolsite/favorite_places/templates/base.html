@@ -16,6 +16,9 @@
 		.card:hover {
 		background-color: rgba(0, 0, 0, 0.1)}
 	{% block css %} {% endblock css %}
+		.redtext {
+		color: red;
+		}
 		</style>
 	</head>
 	<body>
@@ -40,8 +43,12 @@
             <a class="nav-link" href="{% url m.url_name %}">{{ m.title }}</a>
           </li>
 	      {% endfor %}
-	      <div class="last nav-item"><a class="nav-link" href="{% url 'register' %}">регистрация</a></div>
-				<div class="last nav-item me-2 "><a class="nav-link" href="{% url 'login' %}">войти</a></div>
+	      {% if request.user.is_authenticated %}
+	        <div class="last nav-item redtext">{{ user.username }}<a class="nav-link" href="{% url 'logout' %}">выйти</a></div>
+				{% else %}
+	        <div class="last nav-item"><a class="nav-link" href="{% url 'register' %}">регистрация</a></div>
+					<div class="last nav-item me-2 "><a class="nav-link" href="{% url 'login' %}">войти</a></div>
+	      {% endif %}
       </ul>
     </div>
   </div>

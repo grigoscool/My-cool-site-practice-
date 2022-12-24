@@ -18,4 +18,4 @@ def show_people(sort=None):     #в шаблоне в тэге указана п
         people = People.objects.annotate(Count('place'))
     else:
         people = People.objects.order_by(sort).annotate(Count('place'))
-    return {'people':people}
+    return {'people': people}

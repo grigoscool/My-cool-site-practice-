@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.exceptions import ValidationError
 
 from .models import *
@@ -23,3 +23,7 @@ class AddPlaceForm(forms.ModelForm):
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
+
+class LoginUserForm(AuthenticationForm):
+    username = forms.CharField(label=" имя ", widget=forms.TextInput(attrs={'class': 'form-input'}))
+    password = forms.CharField(label="пароль", widget=forms.PasswordInput(attrs={'class': 'form-input'}))
