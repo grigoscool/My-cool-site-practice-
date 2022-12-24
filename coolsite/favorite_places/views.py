@@ -1,7 +1,8 @@
 import random
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -80,8 +81,8 @@ def people(request, people_slug):
 
     return render(request, 'people.html', context)
 
-def login(request):
-    return render(request, 'login.html')
+# def login(request):
+#     return render(request, 'login.html')
 
 class RegaisterUser(DataMixin, CreateView):
     form_class = RegisterForm
@@ -93,3 +94,11 @@ class RegaisterUser(DataMixin, CreateView):
         user_cont = self.get_user_context()
         return context | user_cont
 
+class LoginUser(DataMixin, LoginView):
+    form_class = AuthenticationForm
+    template_name = 'login.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_cont = self.get_user_context()
+        return context | user_cont
