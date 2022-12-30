@@ -14,7 +14,7 @@ class Place(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('hotel', kwargs={'slug':self.slug})
+        return reverse('hotel', kwargs={'slug': self.slug})
 
 
 class People(models.Model):
@@ -25,4 +25,4 @@ class People(models.Model):
         return self.fst_name
 
     def get_absolute_url(self):
-        return reverse('people', kwargs={'people_slug':self.slug})
+        return reverse('people', kwargs={'people_slug': self.slug})
